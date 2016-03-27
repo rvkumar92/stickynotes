@@ -1,10 +1,10 @@
 var React = require('react'),
     Note = require('./Note.js');
     AppActions = require('../actions/AppActions');
-var ViewNotes = React.createClass({
+var NotesList = React.createClass({
     render(){
         return(
-            <div>
+            <div className="row small-up-2 medium-up-3 large-up-4">
                 {
                     this.props.notes.map(function(note,index){
                         return <Note note={note} key={index}/>
@@ -15,4 +15,4 @@ var ViewNotes = React.createClass({
     }
 });
 
-module.exports = ViewNotes;
+module.exports = NotesList;

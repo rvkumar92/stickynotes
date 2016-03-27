@@ -1,6 +1,6 @@
 var React = require('react'),
     AddNoteForm = require('./AddNoteForm.js'),
-    ViewNotes = require('./NotesList.js'),
+    NotesList = require('./NotesList.js'),
     AppStore = require('../store/AppStore');
 
 var Sticky = React.createClass({
@@ -19,8 +19,19 @@ var Sticky = React.createClass({
     render(){
         return(
             <div>
-                <AddNoteForm />
-                <ViewNotes notes={this.state.notes} />
+                <div className="off-canvas-wrapper">
+                    <div className="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+                        <div className="off-canvas position-left reveal-for-large" data-off-canvas data-position="left">
+                            <div className="row column">
+                                <br/>
+                                <AddNoteForm />
+                            </div>
+                        </div>
+                        <div className="off-canvas-content" data-off-canvas-content>
+                            <NotesList notes={this.state.notes}/>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

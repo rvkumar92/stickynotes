@@ -6,10 +6,6 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
 
 var CHANGE_EVENT = 'change';
 
-var _contacts = [];
-
-var _contact_to_edit = '';
-
 var _notes = [];
 var AppStore = assign({},EventEmitter.prototype,{
     addChangeListener(callback){
@@ -66,7 +62,6 @@ AppDispatcher.register(function(payload){
     switch (action.actionType){
         case AppConstants.ADD_NOTE:
             console.log('Adding note...');
-
             //store save
             AppStore.addNote(action.note);
             //Firebase api save
