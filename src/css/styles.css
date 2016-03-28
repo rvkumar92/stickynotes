@@ -1,15 +1,13 @@
-button{
-    margin-top:5px;
+.note{
+    background: url("../images/stickypad.png");
+    width:100%;
+    height: 250px;
+    position:relative;
 }
-.notes{
-    height: 200px;
-    width: 200px;
-    background: yellow;
-    position: relative;
-    margin:auto;
-    text-align: center;
-    font-weight: bolder;
-    font-size: large;
-    padding: 50px 0px 0px 0px;
-    font-family: fantasy;
+
+.note p{
+    position: absolute;
+    top: 80px;
+    left:30px;
+    font-weight:bold;
 }
