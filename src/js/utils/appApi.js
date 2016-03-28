@@ -35,5 +35,17 @@ module.exports = {
         console.log(updatedContact);
         this.firebaseRef = new firebase('https://contactlistwithflux.firebaseio.com/contacts/'+contact.id+'/contact');
         this.firebaseRef.update(updatedContact);
-    }
+    },
+
+    //add to monogolab
+    //mongodb://<dbuser>:<dbpassword>@ds025419.mlab.com:25419/stickpadnotes
+    //eSwjFfhqWphoPBt2sxIfeUUS0uUQzNXP
+        addNote(note){
+            $.ajax({
+                url: "https://api.mongolab.com/api/1/databases/stickpadnotes/collections/notes?apiKey=eSwjFfhqWphoPBt2sxIfeUUS0uUQzNXP",
+                data: JSON.stringify(note),
+                type:"POST",
+                contentType: "application/json"
+            })
+        }
 };

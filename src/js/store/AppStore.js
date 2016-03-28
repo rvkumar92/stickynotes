@@ -64,8 +64,8 @@ AppDispatcher.register(function(payload){
             console.log('Adding note...');
             //store save
             AppStore.addNote(action.note);
-            //Firebase api save
-            //appApi.addNoteToFirebase(action.note);
+            // api save
+            appApi.addNote(action.note);
             //emit event
             AppStore.emit(CHANGE_EVENT);
             break;

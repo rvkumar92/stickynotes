@@ -1,5 +1,5 @@
 var React = require('react'),
-    Note = require('./Note.js');
+    Note = require('./Note.js'),
     AppActions = require('../actions/AppActions');
 var NotesList = React.createClass({
     render(){
