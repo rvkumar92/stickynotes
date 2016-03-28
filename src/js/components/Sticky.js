@@ -1,6 +1,7 @@
 var React = require('react'),
     AddNoteForm = require('./AddNoteForm.js'),
     NotesList = require('./NotesList.js'),
+    EditNoteForm = require('./EditNoteForm.js'),
     AppStore = require('../store/AppStore');
 
 var Sticky = React.createClass({
@@ -17,6 +18,11 @@ var Sticky = React.createClass({
       this.setState(getAppState());
     },
     render(){
+        if(this.state.noteToEdit == ''){
+            var noteForm = <AddNoteForm />;
+        }else{
+            var noteForm = <EditNoteForm noteToEdit={this.state.noteToEdit}/>;
+        }
         return(
             <div>
                 <div className="off-canvas-wrapper">
@@ -24,7 +30,7 @@ var Sticky = React.createClass({
                         <div className="off-canvas position-left reveal-for-large" data-off-canvas data-position="left">
                             <div className="row column">
                                 <br/>
-                                <AddNoteForm />
+                                {noteForm}
                             </div>
                         </div>
                         <div className="off-canvas-content" data-off-canvas-content>
@@ -39,7 +45,8 @@ var Sticky = React.createClass({
 
 getAppState = function(){
   return {
-      notes : AppStore.getNotes()
+      notes : AppStore.getNotes(),
+      noteToEdit: AppStore.getNoteToEdit()
   };
 };
 module.exports = Sticky;

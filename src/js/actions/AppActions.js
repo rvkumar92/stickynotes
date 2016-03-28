@@ -18,6 +18,12 @@ var AppActions = {
             actionType: AppConstants.REMOVE_NOTE,
             note_id: id
         });
+    },
+    editNote(notes){
+        AppDispatcher.handleViewActions({
+            actionType: AppConstants.EDIT_NOTE,
+            editNote: notes
+        });
     }
 
 };

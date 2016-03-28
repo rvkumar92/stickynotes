@@ -5,7 +5,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = 'change';
-
+var note_to_edit = '';
 var _notes = [];
 var AppStore = assign({},EventEmitter.prototype,{
     addChangeListener(callback){
@@ -61,6 +61,12 @@ var AppStore = assign({},EventEmitter.prototype,{
         console.log('remove _notes',_notes);
         var index = _notes.findIndex(i => i._id.$oid === note_id);
         _notes.splice(index,1);
+    },
+    editNote(editNote){
+        note_to_edit = editNote;
+    },
+    getNoteToEdit(){
+        return note_to_edit;
     }
 
 });
@@ -101,8 +107,6 @@ AppDispatcher.register(function(payload){
 
             //store save
             AppStore.editContact(action.editContact);
-
-            //appApi.removeContact(action.contactId);
             //EmitChange
             AppStore.emit(CHANGE_EVENT);
             break;
@@ -121,6 +125,11 @@ AppDispatcher.register(function(payload){
             AppStore.removeNote(action.note_id);
             appApi.removeNote(action.note_id);
             AppStore.emit(CHANGE_EVENT);
+            break;
+        case AppConstants.EDIT_NOTE:
+            AppStore.editNote(action.editNote);
+            AppStore.emit(CHANGE_EVENT);
+            break;
     }
     return true;
 });

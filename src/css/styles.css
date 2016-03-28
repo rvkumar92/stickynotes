@@ -11,3 +11,8 @@
     left:30px;
     font-weight:bold;
 }
+
+.remove-button{
+    float: right;
+    background: darkred;
+}

@@ -5,14 +5,18 @@ var Note = React.createClass({
         console.log(this.props.note);
         return(
             <div className="column">
-                <div className="note" onDoubleClick={this.removeNote.bind(this,this.props.note._id)}>
+                <div className="note" onDoubleClick={this._editNote.bind(this,this.props.note)}>
                     <p>{this.props.note.note}</p>
+                    <button type="button" className="button remove-button" onClick={this.removeNote.bind(this,this.props.note._id)}>X</button>
                 </div>
             </div>
         )
     },
     removeNote(i,j){
         AppActions.removeNote(i.$oid);
+    },
+    _editNote(i,j){
+        AppActions.editNote(i);
     }
 });
 
