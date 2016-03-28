@@ -46,6 +46,33 @@ module.exports = {
                 data: JSON.stringify(note),
                 type:"POST",
                 contentType: "application/json"
-            })
-        }
+            });
+        },
+    getNotes(){
+        $.ajax({
+            url: "https://api.mongolab.com/api/1/databases/stickpadnotes/collections/notes?apiKey=eSwjFfhqWphoPBt2sxIfeUUS0uUQzNXP",
+            dataType: 'json',
+            cache: false,
+            success: function(data){
+                AppActions.receiveNotes(data);
+            }.bind(this),
+            error: function(xhr,status,error){
+                console.log(error);
+            }.bind(this)
+        });
+    },
+    removeNote(noteId){
+        $.ajax({
+            url: "https://api.mongolab.com/api/1/databases/stickpadnotes/collections/notes/"+noteId+"?apiKey=eSwjFfhqWphoPBt2sxIfeUUS0uUQzNXP",
+            type:"DELETE",
+            async: true,
+            timeout: 300000,
+            success: function(data){
+                console.log("deleted");
+            }.bind(this),
+            error: function(xhr,status, error){
+                console.log(error);
+            }
+        })
+    }
 };

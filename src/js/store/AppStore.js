@@ -53,6 +53,14 @@ var AppStore = assign({},EventEmitter.prototype,{
     },
     getNotes(){
         return _notes;
+    },
+    setNotes(notes){
+        _notes = notes;
+    },
+    removeNote(note_id){
+        console.log('remove _notes',_notes);
+        var index = _notes.findIndex(i => i._id.$oid === note_id);
+        _notes.splice(index,1);
     }
 
 });
@@ -69,21 +77,11 @@ AppDispatcher.register(function(payload){
             //emit event
             AppStore.emit(CHANGE_EVENT);
             break;
-        case AppConstants.SAVE_CONTACT:
-            console.log('Saving Contact...');
+        case AppConstants.RECEIVE_NOTES:
+            console.log('Receiving Notes...');
 
             //store save
-            AppStore.saveContact(action.contacts);
-            //Save to api --firebase
-            appApi.saveContact(action.contacts);
-            //EmitChange
-            AppStore.emit(CHANGE_EVENT);
-            break;
-        case AppConstants.RECEIVE_CONTACT:
-            console.log('Receiving Contact...');
-
-            //store save
-            AppStore.receiveContacts(action.contacts);
+            AppStore.setNotes(action.notes);
 
             //EmitChange
             AppStore.emit(CHANGE_EVENT);
@@ -118,6 +116,11 @@ AppDispatcher.register(function(payload){
             //EmitChange
             AppStore.emit(CHANGE_EVENT);
             break;
+        case AppConstants.REMOVE_NOTE:
+            console.log("Removing note...");
+            AppStore.removeNote(action.note_id);
+            appApi.removeNote(action.note_id);
+            AppStore.emit(CHANGE_EVENT);
     }
     return true;
 });
