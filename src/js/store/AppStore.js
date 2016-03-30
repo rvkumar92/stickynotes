@@ -67,8 +67,17 @@ var AppStore = assign({},EventEmitter.prototype,{
     },
     getNoteToEdit(){
         return note_to_edit;
-    }
+    },
+    updateNote(updatedNote){
 
+        for(let i=0;i<_notes.length;i++){
+            console.log(updatedNote.id);
+            if(_notes[i]._id == updatedNote.id){
+                _notes.splice(i,1);
+                _notes.push(updatedNote);
+            }
+        }
+    }
 });
 
 AppDispatcher.register(function(payload){
@@ -92,34 +101,6 @@ AppDispatcher.register(function(payload){
             //EmitChange
             AppStore.emit(CHANGE_EVENT);
             break;
-        case AppConstants.REMOVE_CONTACT:
-            console.log('Remove Contact...');
-
-            //store save
-            AppStore.removeContact(action.contactId);
-
-            appApi.removeContact(action.contactId);
-            //EmitChange
-            AppStore.emit(CHANGE_EVENT);
-            break;
-        case AppConstants.EDIT_CONTACT:
-            console.log('Editing Contact...');
-
-            //store save
-            AppStore.editContact(action.editContact);
-            //EmitChange
-            AppStore.emit(CHANGE_EVENT);
-            break;
-        case AppConstants.UPDATE_CONTACT:
-            console.log('Updating Contact...');
-
-            //store save
-            AppStore.updateContact(action.updateContact);
-
-            appApi.updateContact(action.updateContact);
-            //EmitChange
-            AppStore.emit(CHANGE_EVENT);
-            break;
         case AppConstants.REMOVE_NOTE:
             console.log("Removing note...");
             AppStore.removeNote(action.note_id);
@@ -128,6 +109,22 @@ AppDispatcher.register(function(payload){
             break;
         case AppConstants.EDIT_NOTE:
             AppStore.editNote(action.editNote);
+            AppStore.emit(CHANGE_EVENT);
+            break;
+        case AppConstants.UPDATE_NOTE:
+            console.log('Updating note...');
+            AppStore.updateNote(action.updatedNote);
+            appApi.updateNote(action.updatedNote);
+            AppStore.emit(CHANGE_EVENT);
+
+        case AppConstants.UPDATE_CONTACT:
+            console.log('Updating Contact...');
+
+            //store save
+            AppStore.updateContact(action.updateContact);
+
+            appApi.updateContact(action.updateContact);
+            //EmitChange
             AppStore.emit(CHANGE_EVENT);
             break;
     }

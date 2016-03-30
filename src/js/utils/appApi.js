@@ -1,30 +1,6 @@
 var firebase = require('firebase'),
     AppActions = require('../actions/AppActions');
 module.exports = {
-    addNoteToFirebase(note){
-        this.firebaseRef = new firebase('https://stickypadnotes.firebaseio.com/stickynotes');
-        this.firebaseRef.push({note: note});
-    },
-    getContacts(){
-        this.firebaseRef = new firebase('https://contactlistwithflux.firebaseio.com/contacts');
-        this.firebaseRef.once("value",function(snapshot){
-            var contacts = [];
-            snapshot.forEach(function(childSnapshot){
-                var contact = {
-                    id: childSnapshot.key(),
-                    name: childSnapshot.val().contact.name,
-                    number: childSnapshot.val().contact.number,
-                    email: childSnapshot.val().contact.email
-                };
-                contacts.push(contact);
-                AppActions.receiveContacts(contacts);
-            })
-        });
-    },
-    removeContact(contactId){
-        this.firebaseRef = new firebase('https://contactlistwithflux.firebaseio.com/contacts/'+ contactId);
-        this.firebaseRef.remove();
-    },
     updateContact(contact){
         var id = contact.id;
         var updatedContact = {
@@ -74,5 +50,19 @@ module.exports = {
                 console.log(error);
             }
         })
+    },
+    updateNote(updateNote){
+        console.log('appApi',updateNote);
+        console.log('appApi',updateNote.id.$oid);
+        var noteId = updateNote.id.$oid;
+        var noteToUpdate = updateNote.note;
+
+        console.log("noteToUpdate", noteToUpdate);
+        $.ajax({
+            url: "https://api.mongolab.com/api/1/databases/stickpadnotes/collections/notes/"+noteId+"?apiKey=eSwjFfhqWphoPBt2sxIfeUUS0uUQzNXP",
+            data: JSON.stringify({"$set": {note:noteToUpdate}}),
+            type: "PUT",
+            contentType: "application/json"
+        });
     }
 };

@@ -18,11 +18,11 @@ var Sticky = React.createClass({
       this.setState(getAppState());
     },
     render(){
-        if(this.state.noteToEdit == ''){
-            var noteForm = <AddNoteForm />;
-        }else{
-            var noteForm = <EditNoteForm noteToEdit={this.state.noteToEdit}/>;
-        }
+            if(this.state.noteToEdit == ''){
+                var form = <AddNoteForm />
+            }else{
+                var form = <EditNoteForm noteToEdit={this.state.noteToEdit}/>
+            }
         return(
             <div>
                 <div className="off-canvas-wrapper">
@@ -30,7 +30,7 @@ var Sticky = React.createClass({
                         <div className="off-canvas position-left reveal-for-large" data-off-canvas data-position="left">
                             <div className="row column">
                                 <br/>
-                                {noteForm}
+                                {form}
                             </div>
                         </div>
                         <div className="off-canvas-content" data-off-canvas-content>

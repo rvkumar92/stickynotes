@@ -3,14 +3,14 @@ var React = require('react'),
 var EditNoteForm = React.createClass({
     handleForm(e){
         e.preventDefault();
-        /*var note = {
-            note: this.refs.note.value.trim()
+        updatedNote = {
+            id: this.props.noteToEdit._id,
+            note: this.refs.noteText.value
         };
-        AppActions.addNote(note);
-        this.refs.note.value = '';*/
+        AppActions.updateNote(updatedNote);
     },
     render(){
-        console.log("Editing notes" ,this.props.noteToEdit);
+        console.log("Editing notes" ,this.props);
         return(
             <div>
                 <h3>Edit Note</h3>
@@ -18,8 +18,7 @@ var EditNoteForm = React.createClass({
                     <div className="row">
                         <div className="large-12 column">
                             <label>Note Text
-                                <input type="text" value={this.props.noteToEdit.note}
-                                       ref="editNote" className="form-control" onChange={this.handleEdit.bind(this,'note')}/>
+                                <input type="text" onChange={this.handleEdit} ref="noteText" value={this.props.noteToEdit.note}/>
                                 <button type="submit" className="button">Update</button>
                             </label>
                         </div>
@@ -29,6 +28,10 @@ var EditNoteForm = React.createClass({
         )
     },
     handleEdit(note,event){
+        var newstate = event.target.value;
+        var selected = this.state.selected;
+        selected.note = newstate;
+        this.setState({selected: selected});
         console.log(note);
     }
 });

@@ -24,6 +24,13 @@ var AppActions = {
             actionType: AppConstants.EDIT_NOTE,
             editNote: notes
         });
+    },
+    updateNote(updatedNote){
+        console.log(updatedNote);
+        AppDispatcher.handleViewActions({
+            actionType: AppConstants.UPDATE_NOTE,
+            updatedNote: updatedNote
+        })
     }
 
 };

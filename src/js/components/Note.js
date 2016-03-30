@@ -2,7 +2,6 @@ var React = require('react'),
     AppActions = require('../actions/AppActions');
 var Note = React.createClass({
     render(){
-        console.log(this.props.note);
         return(
             <div className="column">
                 <div className="note" onDoubleClick={this._editNote.bind(this,this.props.note)}>
